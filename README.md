@@ -24,6 +24,9 @@ gg init demo test # be gen test from demo scaffold into current dir
 
 ```
 
+## SHOWCASE
+[![asciicast](https://asciinema.org/a/195071.png)](https://asciinema.org/a/195071)
+
 ## NOTE
 ### just support unix*
 
