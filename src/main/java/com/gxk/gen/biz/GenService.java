@@ -40,7 +40,7 @@ public class GenService {
 
   public void copyAndApply(Scaffold scaffold, Path destination, Transfer inline, Transfer tpl) {
 
-    Path source = scaffold.path.resolve(Constant.GLOBAL_SCAFOLD_TEMPLATE);
+    Path source = scaffold.path.resolve(Constant.GLOBAL_SCAFFOLD_TEMPLATE);
     Map<String, Object> context = scaffold.config;
 
     try {

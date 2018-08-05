@@ -12,6 +12,7 @@ public class Config {
   private static Config me;
 
   private Toml globalConfig;
+  private Path globalConfigPath;
 
   private Config() {
     initGlobalConfig();
@@ -25,10 +26,13 @@ public class Config {
   }
 
   private void initGlobalConfig() {
-    Path globalPath = Paths.get(Constant.USER_HOME_DIR, ".gen", "config", Constant.GLOBAL_CONFIG_FILENAME);
-    globalConfig = new Toml().read(globalPath.toFile());
+    globalConfigPath = Paths.get(Constant.USER_HOME_DIR, ".gen", "config", Constant.GLOBAL_CONFIG_FILENAME);
+    globalConfig = new Toml().read(globalConfigPath.toFile());
   }
 
+  public Path getGlobalConfigPath() {
+    return this.globalConfigPath;
+  }
   public Toml getGlobalConfig() {
     return globalConfig;
   }

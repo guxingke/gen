@@ -18,7 +18,7 @@ import java.util.List;
 
 public class InfoCommand implements Command {
 
-  @Argument(usage = "creates a new site at the given path", metaVar = "<path>")
+  @Argument(usage = "show scaffold info", metaVar = "<scaffold name>")
   public List<String> args = new ArrayList<>();//
 
   @Option(name = "--help", aliases = {
@@ -31,9 +31,6 @@ public class InfoCommand implements Command {
   @Override
   public void execute() {
     if (help) {
-      System.out.println("-------------------------");
-      System.out.println("show scaffold info");
-      System.out.println("-------------------------");
       CmdLineParser parser = new CmdLineParser(this, ParserProperties.defaults().withUsageWidth(120));
       parser.printUsage(System.out);
       return;
@@ -45,7 +42,7 @@ public class InfoCommand implements Command {
         System.out.println("-------------------------");
         System.out.println();
 
-        List<String> lines = Files.readAllLines(Paths.get(Constant.USER_HOME_DIR, ".gen", "config", Constant.GLOBAL_CONFIG_FILENAME));
+        List<String> lines = Files.readAllLines(Config.getInstance().getGlobalConfigPath());
         lines.forEach(System.out::println);
 
         return;
@@ -64,7 +61,7 @@ public class InfoCommand implements Command {
         continue;
       }
       try {
-        List<String> lines = Files.readAllLines(Paths.get(dir, info, Constant.GLOBAL_SCAFOLD_CONFIG_NAME));
+        List<String> lines = Files.readAllLines(Paths.get(dir, info, Constant.GLOBAL_SCAFFOLD_CONFIG_NAME));
         lines.forEach(System.out::println);
       } catch (IOException e) {
         e.printStackTrace();

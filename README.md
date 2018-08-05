@@ -1,10 +1,16 @@
 ## GEN
 generate project from scaffold
 
+## REQUIREMENTS
+- sys: unix*
+- jdk8+
+- maven3.3+
+
+
 ## RUN (in bash)
 
 ```
-git clone xxxx
+git clone git@github.com:guxingke/gen.git
 cd gen
 .bin/package.sh
 .bin/install.sh

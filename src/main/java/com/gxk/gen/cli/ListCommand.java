@@ -31,7 +31,7 @@ public class ListCommand implements Command {
     }
 
     Toml config = Config.getInstance().getGlobalConfig();
-    List<String> dirs = config.getList(Constant.GLOBAL_SCAFOLD_DIR);
+    List<String> dirs = config.getList(Constant.GLOBAL_SCAFFOLD_DIR);
 
     for (String dir : dirs) {
       System.out.println("----------------");
