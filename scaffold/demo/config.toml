@@ -1,0 +1,9 @@
+###gen###
+# just support string
+
+name = "demo"
+author = "gxk"
+
+[info]
+version = "0.0.1"
+desc = "demo scaffold"
