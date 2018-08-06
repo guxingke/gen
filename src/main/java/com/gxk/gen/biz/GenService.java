@@ -2,7 +2,6 @@ package com.gxk.gen.biz;
 
 import com.gxk.gen.constant.Constant;
 import com.gxk.gen.tansfer.Transfer;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.zeroturnaround.exec.ProcessExecutor;
@@ -21,7 +20,6 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 public class GenService {
   private static final Logger logger = LoggerFactory.getLogger(GenService.class);
@@ -99,7 +97,7 @@ public class GenService {
     }
 
     try {
-      String output = new ProcessExecutor()
+      new ProcessExecutor()
           .directory(file)
           .command("sh", "gen_finish.sh", file.toString())
           .destroyOnExit()
@@ -116,13 +114,12 @@ public class GenService {
               }
             }
           })
-          .timeout(2, TimeUnit.MINUTES)
-          .readOutput(true).execute()
-          .outputUTF8();
+          .redirectOutput(System.out)
+          .redirectError(System.err)
+          .timeout(20, TimeUnit.MINUTES) // 超时会导致 shell 内资源未释放.
+          .execute();
 
-      System.out.println(output);
-    } catch (IOException | InterruptedException |
-        TimeoutException e) {
+    } catch (Exception e) {
       logger.error("some error ", e);
     }
 
