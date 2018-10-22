@@ -29,6 +29,17 @@ cp bin/gen.sh /usr/local/bin/gg
 echo "-- step1 success"
 
 
+echo "-- step1.1 deploy local binary app"
+if [ ! -f target/gen ]; then
+    echo 'sh aot.sh first'
+    echo "-- step1.1 failed, but skip err"
+else
+cp target/gen /usr/local/bin/gg
+fi
+
+echo "-- step1.1 success"
+
+
 echo "-- step2 resource deploy local"
 if [ -d $HOME/.gen ]; then
  echo "$HOME/.gen existed, check it , bak it, and remove it, rerun install.sh"

@@ -16,3 +16,7 @@ pushd $BASE_DIR
 mvn -q clean && mvn -q package -DskipTests
 
 popd
+
+sh aot.sh
+
+echo "done"

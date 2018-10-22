@@ -36,3 +36,6 @@ gg init demo test # be gen test from demo scaffold into current dir
 ## NOTE
 ### just support unix*
 
+
+## REF
+[picocli](https://picocli.info/)

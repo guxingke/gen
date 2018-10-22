@@ -1,4 +1,4 @@
-package com.gxk.gen.cli;
+package com.gxk.gen.cli.picocli;
 
 import com.gxk.gen.biz.GenService;
 import com.gxk.gen.biz.Scaffold;
@@ -6,43 +6,31 @@ import com.gxk.gen.config.Config;
 import com.gxk.gen.tansfer.InlineTransfer;
 import com.gxk.gen.tansfer.TplTransfer;
 import org.apache.commons.lang3.StringUtils;
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.CmdLineParser;
-import org.kohsuke.args4j.Option;
-import org.kohsuke.args4j.ParserProperties;
-import org.kohsuke.args4j.spi.BooleanOptionHandler;
+import picocli.CommandLine;
 
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class InitCommand implements Command {
-  @Argument(usage = "create new at the given path", metaVar = "<args>")
-  public List<String> args = new ArrayList<>();
+@CommandLine.Command(name = "init", aliases = "n", description = "create new at the given path")
+public class InitCmd implements Runnable {
 
-  @Option(name = "--help", aliases = {
-      "-h"}, handler = BooleanOptionHandler.class, usage = "find help about this command")
-  private boolean help = false;
+  @CommandLine.Parameters(hidden = true)
+  private List<String> args;
 
-  /**
-   * Executes the command
-   */
+  @CommandLine.Parameters(index = "0")
+  private String source;
+
+  @CommandLine.Parameters(index = "1")
+  private String target;
+
+  @CommandLine.Option(names = {"-h", "--help"}, usageHelp = true, description = "display a help message")
+  private boolean helpRequested = false;
+
   @Override
-  public void execute() {
-    if (help || args.size() != 2) {
-      System.out.println("Scaffold out a new directory structure.");
-      System.out.println("usage: gen init [scaffold name] [target path] ");
-      CmdLineParser parser = new CmdLineParser(this, ParserProperties.defaults().withUsageWidth(120));
-      parser.printUsage(System.out);
-      return;
-    }
-
-    String source = args.get(0);
-    String target = args.get(1);
-
+  public void run() {
     String scaffoldDir = Config.getInstance().getActiveScaffoldPath(source);
     if (StringUtils.isEmpty(scaffoldDir)) {
       System.out.println("invalid scaffold path");
